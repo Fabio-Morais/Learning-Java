@@ -376,7 +376,7 @@
           <option name="items">
             <list>
               <FrameworkLesson>
-                <option name="currentTaskIndex" value="2" />
+                <option name="currentTaskIndex" value="4" />
                 <option name="customPresentableName" />
                 <option name="id" value="0" />
                 <option name="index" value="1" />
@@ -511,7 +511,7 @@
                       <option name="index" value="3" />
                       <option name="name" value="Print the game state" />
                       <option name="record" value="3" />
-                      <option name="status" value="Unchecked" />
+                      <option name="status" value="Solved" />
                       <option name="files">
                         <map>
                           <entry key="test/TicTacToeTest.java">
@@ -534,7 +534,7 @@
                                 <option name="answerPlaceholders">
                                   <list />
                                 </option>
-                                <option name="highlightErrors" value="false" />
+                                <option name="highlightErrors" value="true" />
                                 <option name="name" value="src/tictactoe/Main.java" />
                                 <option name="text" value="package tictactoe;&#10;&#10;public class Main {&#10;    public static void main(String[] args) {&#10;        System.out.println(&quot;Hello World!&quot;);&#10;    }&#10;}&#10;" />
                                 <option name="trackChanges" value="true" />
@@ -573,8 +573,8 @@
                       <option name="id" value="5400" />
                       <option name="index" value="4" />
                       <option name="name" value="Create a human move" />
-                      <option name="record" value="-1" />
-                      <option name="status" value="Unchecked" />
+                      <option name="record" value="4" />
+                      <option name="status" value="Solved" />
                       <option name="files">
                         <map>
                           <entry key="test/TicTacToeTest.java">
@@ -597,9 +597,23 @@
                                 <option name="answerPlaceholders">
                                   <list />
                                 </option>
-                                <option name="highlightErrors" value="false" />
+                                <option name="highlightErrors" value="true" />
                                 <option name="name" value="src/tictactoe/Main.java" />
                                 <option name="text" value="package tictactoe;&#10;&#10;public class Main {&#10;    public static void main(String[] args) {&#10;        System.out.println(&quot;Hello World!&quot;);&#10;    }&#10;}&#10;" />
+                                <option name="trackChanges" value="true" />
+                                <option name="visible" value="true" />
+                              </TaskFile>
+                            </value>
+                          </entry>
+                          <entry key="src/tictactoe/GameScreen.java">
+                            <value>
+                              <TaskFile>
+                                <option name="answerPlaceholders">
+                                  <list />
+                                </option>
+                                <option name="highlightErrors" value="true" />
+                                <option name="name" value="src/tictactoe/GameScreen.java" />
+                                <option name="text" value="package tictactoe;&#10;&#10;public class GameScreen {&#10;    private char[][] symbols;&#10;    private int numX;&#10;    private int numY;&#10;    public GameScreen() {&#10;        this.symbols = new char[3][3];&#10;        numX=0;&#10;        numY=0;&#10;    }&#10;&#10;    public void setSymbols(String cells) {&#10;        System.out.println(cells.length());&#10;        if(cells.length() != 11)&#10;            System.out.println(&quot;error&quot;);&#10;        else{&#10;            int c=0;&#10;            int r=0;&#10;            for(int i=1; i&lt;cells.length()-1; i++){&#10;&#10;                if(i==4 || i==7)&#10;                {&#10;                    c++;&#10;                    r=0;&#10;                }&#10;                this.symbols[c][r] = Character.toUpperCase(cells.charAt(i));&#10;                if(this.symbols[c][r] == &quot;X&quot;.charAt(0))&#10;                    numX++;&#10;                else if(this.symbols[c][r] == &quot;O&quot;.charAt(0))&#10;                    numY++;&#10;                r++;&#10;            }&#10;        }&#10;    }&#10;&#10;    public void printGame(){&#10;&#10;           for (int i = 0; i &lt; 5; i++) {&#10;               if (i == 0 || i == 4)&#10;                   System.out.println(&quot;---------&quot;);&#10;               else {&#10;                   System.out.print(&quot;| &quot;);&#10;                   for (int j = 0; j &lt; 3; j++) {&#10;                       System.out.print(symbols[i-1][j] + &quot; &quot;);&#10;                   }&#10;                   System.out.print(&quot;|\n&quot;);&#10;               }&#10;&#10;           }&#10;&#10;&#10;    }&#10;&#10;    public void gameState(){&#10;        boolean xWins=false;&#10;        boolean oWins=false;&#10;        String winV, winH, winD;&#10;        /*Diagonal*/&#10;        winD=&quot;&quot;+this.symbols[0][0]+&quot;&quot;+this.symbols[1][1]+&quot;&quot;+this.symbols[2][2]+ &quot;&quot;+this.symbols[0][2]+&quot;&quot;+this.symbols[1][1]+&quot;&quot;+this.symbols[2][0];&#10;&#10;        for(int i=0; i&lt;3; i++){&#10;                /*vertical*/&#10;            winV=&quot;&quot;+this.symbols[i][0]+&quot;&quot;+this.symbols[i][1]+&quot;&quot;+this.symbols[i][2];&#10;                /*horizontal*/&#10;            winH=&quot;&quot;+this.symbols[0][i]+&quot;&quot;+this.symbols[1][i]+&quot;&quot;+this.symbols[2][i];&#10;&#10;            if(winV.equals(&quot;XXX&quot;) || winH.equals(&quot;XXX&quot;) || winD.substring(0,3).equals(&quot;XXX&quot;) || winD.substring(3,6).equals(&quot;XXX&quot;))&#10;                xWins=true;&#10;            else if(winV.equals(&quot;OOO&quot;) || winH.equals(&quot;OOO&quot;) || winD.substring(0,3).equals(&quot;OOO&quot;) || winD.substring(3,6).equals(&quot;OOO&quot;))&#10;                oWins=true;&#10;&#10;        }&#10;        if(xWins &amp;&amp; oWins || (Math.abs(numX-numY)&gt;1))&#10;            System.out.println(&quot;Impossible&quot;);&#10;        else if(xWins)&#10;            System.out.println(&quot;X wins&quot;);&#10;        else if(oWins)&#10;            System.out.println(&quot;O wins&quot;);&#10;        else if((numY+numX) != 9)&#10;            System.out.println(&quot;Game not finished&quot;);&#10;        else&#10;            System.out.println(&quot;Draw&quot;);&#10;    }&#10;}&#10;" />
                                 <option name="trackChanges" value="true" />
                                 <option name="visible" value="true" />
                               </TaskFile>
@@ -623,7 +637,7 @@
                       <option name="index" value="5" />
                       <option name="name" value="Find errors in user input" />
                       <option name="record" value="-1" />
-                      <option name="status" value="Unchecked" />
+                      <option name="status" value="Solved" />
                       <option name="files">
                         <map>
                           <entry key="test/TicTacToeTest.java">
@@ -646,9 +660,23 @@
                                 <option name="answerPlaceholders">
                                   <list />
                                 </option>
-                                <option name="highlightErrors" value="false" />
+                                <option name="highlightErrors" value="true" />
                                 <option name="name" value="src/tictactoe/Main.java" />
                                 <option name="text" value="package tictactoe;&#10;&#10;public class Main {&#10;    public static void main(String[] args) {&#10;        System.out.println(&quot;Hello World!&quot;);&#10;    }&#10;}&#10;" />
+                                <option name="trackChanges" value="true" />
+                                <option name="visible" value="true" />
+                              </TaskFile>
+                            </value>
+                          </entry>
+                          <entry key="src/tictactoe/GameScreen.java">
+                            <value>
+                              <TaskFile>
+                                <option name="answerPlaceholders">
+                                  <list />
+                                </option>
+                                <option name="highlightErrors" value="true" />
+                                <option name="name" value="src/tictactoe/GameScreen.java" />
+                                <option name="text" value="package tictactoe;&#10;&#10;public class GameScreen {&#10;    private char[][] symbols;&#10;    private int numX;&#10;    private int numY;&#10;    public GameScreen() {&#10;        this.symbols = new char[3][3];&#10;        numX=0;&#10;        numY=0;&#10;    }&#10;&#10;    public void setSymbols(String cells) {&#10;        System.out.println(cells.length());&#10;        if(cells.length() != 11)&#10;            System.out.println(&quot;error&quot;);&#10;        else{&#10;            int c=0;&#10;            int r=0;&#10;            for(int i=1; i&lt;cells.length()-1; i++){&#10;&#10;                if(i==4 || i==7)&#10;                {&#10;                    c++;&#10;                    r=0;&#10;                }&#10;                this.symbols[c][r] = Character.toUpperCase(cells.charAt(i));&#10;                if(this.symbols[c][r] == &quot;X&quot;.charAt(0))&#10;                    numX++;&#10;                else if(this.symbols[c][r] == &quot;O&quot;.charAt(0))&#10;                    numY++;&#10;                r++;&#10;            }&#10;        }&#10;    }&#10;&#10;    public void printGame(){&#10;&#10;           for (int i = 0; i &lt; 5; i++) {&#10;               if (i == 0 || i == 4)&#10;                   System.out.println(&quot;---------&quot;);&#10;               else {&#10;                   System.out.print(&quot;| &quot;);&#10;                   for (int j = 0; j &lt; 3; j++) {&#10;                       System.out.print(symbols[i-1][j] + &quot; &quot;);&#10;                   }&#10;                   System.out.print(&quot;|\n&quot;);&#10;               }&#10;&#10;           }&#10;&#10;&#10;    }&#10;&#10;    public void setCoordSymb(int x, int y){&#10;        int x1=Math.abs(x-1);&#10;        int y1=Math.abs(y-3);&#10;        this.symbols[y1][x1]=&quot;X&quot;.charAt(0);&#10;    }&#10;&#10;    public void gameState(){&#10;        boolean xWins=false;&#10;        boolean oWins=false;&#10;        String winV, winH, winD;&#10;        /*Diagonal*/&#10;        winD=&quot;&quot;+this.symbols[0][0]+&quot;&quot;+this.symbols[1][1]+&quot;&quot;+this.symbols[2][2]+ &quot;&quot;+this.symbols[0][2]+&quot;&quot;+this.symbols[1][1]+&quot;&quot;+this.symbols[2][0];&#10;&#10;        for(int i=0; i&lt;3; i++){&#10;                /*vertical*/&#10;            winV=&quot;&quot;+this.symbols[i][0]+&quot;&quot;+this.symbols[i][1]+&quot;&quot;+this.symbols[i][2];&#10;                /*horizontal*/&#10;            winH=&quot;&quot;+this.symbols[0][i]+&quot;&quot;+this.symbols[1][i]+&quot;&quot;+this.symbols[2][i];&#10;&#10;            if(winV.equals(&quot;XXX&quot;) || winH.equals(&quot;XXX&quot;) || winD.substring(0,3).equals(&quot;XXX&quot;) || winD.substring(3,6).equals(&quot;XXX&quot;))&#10;                xWins=true;&#10;            else if(winV.equals(&quot;OOO&quot;) || winH.equals(&quot;OOO&quot;) || winD.substring(0,3).equals(&quot;OOO&quot;) || winD.substring(3,6).equals(&quot;OOO&quot;))&#10;                oWins=true;&#10;&#10;        }&#10;&#10;        /* Print game state */&#10;        if(xWins &amp;&amp; oWins || (Math.abs(numX-numY)&gt;1))&#10;            System.out.println(&quot;Impossible&quot;);&#10;        else if(xWins)&#10;            System.out.println(&quot;X wins&quot;);&#10;        else if(oWins)&#10;            System.out.println(&quot;O wins&quot;);&#10;        else if((numY+numX) != 9)&#10;            System.out.println(&quot;Game not finished&quot;);&#10;        else&#10;            System.out.println(&quot;Draw&quot;);&#10;    }&#10;}&#10;" />
                                 <option name="trackChanges" value="true" />
                                 <option name="visible" value="true" />
                               </TaskFile>
