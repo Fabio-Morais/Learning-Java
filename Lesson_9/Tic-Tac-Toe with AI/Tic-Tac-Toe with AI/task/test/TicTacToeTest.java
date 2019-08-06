@@ -35,7 +35,6 @@ class TicTacToeField {
 
     TicTacToeField(String str) {
         field = new FieldState[3][3];
-        str = str.replace("\"", "");
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -129,7 +128,6 @@ class TicTacToeField {
         }
     }
 
-
     static List<TicTacToeField> parseAll(String output) {
         List<TicTacToeField> fields = new ArrayList<>();
 
@@ -166,9 +164,7 @@ class TicTacToeField {
 
 class Clue {
     int x, y;
-    String input;
-    Clue(String input, int x, int y) {
-        this.input = input;
+    Clue(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -179,8 +175,7 @@ public class TicTacToeTest extends BaseStageTest<Clue> {
         super(Main.class);
     }
 
-    // TODO: why if this field in not static then it is null, not String[]?
-    static final String[] inputs = new String[] {
+    static String[] inputs = new String[] {
         "1 1", "1 2", "1 3",
         "2 1", "2 2", "2 3",
         "3 1", "3 2", "3 3"
@@ -210,33 +205,80 @@ public class TicTacToeTest extends BaseStageTest<Clue> {
         List<TestCase<Clue>> tests = new ArrayList<>();
 
         int i = 0;
+        for (String input : inputs) {
+            String fullMoveInput = iterateCells(input);
 
-        for (String startField : new String[] {
-            "\" XXOO OX \"",
-            "\"         \"",
-            "\"X X O    \""
-        }) {
+            String[] strNums = input.split(" ");
+            int x = Integer.parseInt(strNums[0]);
+            int y = Integer.parseInt(strNums[1]);
 
-            for (String input : inputs) {
-                String fullInput = iterateCells(input);
-
-                String[] strNums = input.split("\\s+");
-                int x = Integer.parseInt(strNums[0]);
-                int y = Integer.parseInt(strNums[1]);
-
-                if (i % 2 == 1) {
-                    // mix with incorrect data
-                    fullInput = "4 " + i + "\n" + fullInput;
-                }
-
-                tests.add(new TestCase<Clue>()
-                    .setInput(startField + "\n" + fullInput)
-                    .setAttach(new Clue(startField, x, y)));
-
-                i++;
+            if (i % 2 == 1) {
+                // mix with incorrect data
+                fullMoveInput = "4 " + i + "\n" + fullMoveInput;
             }
 
+            String fullGameInput = "";
+            for (int j = 0; j < 9; j++) {
+                fullGameInput += fullMoveInput;
+            }
+
+            String initial;
+
+            switch (i % 6) {
+                case 0: initial = "start user easy\n"; break;
+                case 1: initial = "start easy user\n"; break;
+                case 2: initial = "start user medium\n"; break;
+                case 3: initial = "start medium user\n"; break;
+                case 4: initial = "start user hard\n"; break;
+                case 5: initial = "start hard user\n"; break;
+                default: continue;
+            }
+
+            fullGameInput = initial + fullGameInput + "exit";
+
+            tests.add(new TestCase<Clue>()
+                .setInput(fullGameInput));
+
+            i++;
         }
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start easy easy\nexit"));
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start medium medium\nexit"));
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start hard hard\nexit"));
+
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start medium easy\nexit"));
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start easy medium\nexit"));
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start medium hard\nexit"));
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start hard medium\nexit"));
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start easy hard\nexit"));
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start hard easy\nexit"));
+
+
+        tests.add(new TestCase<Clue>()
+            .setInput("start user user\n" +
+                "1 1\n" +
+                "2 2\n" +
+                "1 2\n" +
+                "2 1\n" +
+                "1 3\n" +
+                "exit"));
 
         return tests;
     }
@@ -246,36 +288,20 @@ public class TicTacToeTest extends BaseStageTest<Clue> {
 
         List<TicTacToeField> fields = TicTacToeField.parseAll(reply);
 
-        if (fields.size() != 2) {
-            return new CheckResult(false,
-                "Can't find two fields inside output");
+        if (fields.size() == 0) {
+            return new CheckResult(false, "No fields found");
         }
 
-        TicTacToeField curr = fields.get(0);
-        TicTacToeField next = fields.get(1);
+        for (int i = 1; i < fields.size(); i++) {
+            TicTacToeField curr = fields.get(i - 1);
+            TicTacToeField next = fields.get(i);
 
-        TicTacToeField correctCurr = new TicTacToeField(clue.input);
-        TicTacToeField correctNext = new TicTacToeField(correctCurr.field);
-
-        String[] numInputs = iterateCells(clue.x + " " + clue.y).split("\n");
-        for (String input : numInputs) {
-            String[] strNums = input.split(" ");
-            int x = Integer.parseInt(strNums[0]);
-            int y = Integer.parseInt(strNums[1]);
-            if (correctNext.field[y - 1][x - 1] == FieldState.FREE) {
-                correctNext.field[y - 1][x - 1] = FieldState.X;
-                break;
+            if (!(curr.equalTo(next) || curr.hasNextAs(next))) {
+                return new CheckResult(false,
+                    "For two fields following each " +
+                        "other one is not a continuation " +
+                        "of the other.");
             }
-        }
-
-        if (!curr.equalTo(correctCurr)) {
-            return new CheckResult(false,
-                "The first field is not equal to the input field");
-        }
-
-        if (!next.equalTo(correctNext)) {
-            return new CheckResult(false,
-                "The first field is correct, but the second is not");
         }
 
         return CheckResult.TRUE;

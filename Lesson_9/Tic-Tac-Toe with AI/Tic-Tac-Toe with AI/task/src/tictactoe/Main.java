@@ -6,39 +6,43 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("Enter cells: ");
-        String cells = scanner.nextLine();
         GameScreen tikTak = new GameScreen();
-        tikTak.setSymbols(cells);
-        tikTak.printGame();
-
-        String aux;
-        int x = 4;
-        int y = 4;
+        //System.out.println("Enter cells: ");
+        //String cells = scanner.nextLine();
+        //tikTak.setSymbols(cells);
+        int[] option = new int[2];
+        option=tikTak.startMenu();
 
         while (true) {
-            System.out.print("Enter the coordinates: ");
-            aux = scanner.nextLine();
+            chooseWhoMove(option[0], tikTak);
+            tikTak.printGame();
+            if(tikTak.gameState())
+                break;
+            chooseWhoMove(option[1], tikTak);
+            tikTak.printGame();
+            if(tikTak.gameState())
+                break;
+        }
+    }
 
-            if (!Character.isDigit(aux.charAt(0)) || !Character.isDigit(aux.charAt(2)))
-                System.out.println("You should enter numbers!");
-            else {
-                x = Character.getNumericValue(aux.charAt(0));
-                y = Character.getNumericValue(aux.charAt(2));
-                if ((x >= 1 && x <= 3) && (y >= 1 && y <= 3) && tikTak.isEmpty(x,y))
-                    break;
-                else if((x >= 1 && x <= 3) && (y >= 1 && y <= 3) && !tikTak.isEmpty(x,y))
-                    System.out.println("This cell is occupied! Choose another one!");
-                else
-                    System.out.println("Coordinates should be from 1 to 3!");
-            }
+    public static void chooseWhoMove(int n, GameScreen tikTak){
 
+        switch (n){
+            case 0:
+                tikTak.requestCoord();
+                break;
+            case 1:
+                System.out.println("Making move level \"easy\"");
+                tikTak.makeMoveEasy();
+                break;
+            case 2:
+                System.out.println("Making move level \"medium\"");
+                tikTak.makeMoveMedium();
+                break;
+            default:
+                break;
         }
 
-
-        tikTak.setCoordSymb(x, y);
-        tikTak.printGame();
-        //  tikTak.gameState();
     }
 
 }
