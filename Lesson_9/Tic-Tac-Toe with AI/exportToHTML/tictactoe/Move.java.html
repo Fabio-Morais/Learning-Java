@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Move.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #629755; font-style: italic;}
+.s4 { color: #629755; font-weight: bold; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Move.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">tictactoe</span><span class="s0">;</span>
+
+public class <span class="s1">Move {</span>
+    <span class="s0">private int </span><span class="s1">xCoordinates</span><span class="s0">;</span>
+    private int <span class="s1">yCoordinates</span><span class="s0">;</span>
+    private int <span class="s1">simulationResult</span><span class="s0">;</span>
+    private boolean <span class="s1">isDraw</span><span class="s0">;</span>
+
+    public <span class="s1">Move(){</span>
+        <span class="s0">this</span><span class="s1">.xCoordinates = -</span><span class="s2">10</span><span class="s0">;</span>
+        this<span class="s1">.yCoordinates = -</span><span class="s2">10</span><span class="s0">;</span>
+        this<span class="s1">.simulationResult = </span><span class="s2">0</span><span class="s0">;</span>
+        this<span class="s1">.isDraw = </span><span class="s0">false;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">/**</span>
+     * <span class="s4">@return </span><span class="s3">the xCoordinates</span>
+     */
+    <span class="s0">public int </span><span class="s1">getxCoordinates() {</span>
+        <span class="s0">return </span><span class="s1">xCoordinates</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">/**</span>
+     * <span class="s4">@param </span><span class="s3">xCoordinates the xCoordinates to set</span>
+     */
+    <span class="s0">public void </span><span class="s1">setxCoordinates(</span><span class="s0">int </span><span class="s1">xCoordinates) {</span>
+        <span class="s0">this</span><span class="s1">.xCoordinates = xCoordinates</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">/**</span>
+     * <span class="s4">@return </span><span class="s3">the yCoordinates</span>
+     */
+    <span class="s0">public int </span><span class="s1">getyCoordinates() {</span>
+        <span class="s0">return </span><span class="s1">yCoordinates</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">/**</span>
+     * <span class="s4">@param </span><span class="s3">yCoordinates the yCoordinates to set</span>
+     */
+    <span class="s0">public void </span><span class="s1">setyCoordinates(</span><span class="s0">int </span><span class="s1">yCoordinates) {</span>
+        <span class="s0">this</span><span class="s1">.yCoordinates = yCoordinates</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">/**</span>
+     * <span class="s4">@return </span><span class="s3">the simulationResult</span>
+     */
+    <span class="s0">public int </span><span class="s1">getSimulationResult() {</span>
+        <span class="s0">return </span><span class="s1">simulationResult</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">/**</span>
+     * <span class="s4">@param </span><span class="s3">simulationResult the simulationResult to set</span>
+     */
+    <span class="s0">public void </span><span class="s1">setSimulationResult(</span><span class="s0">int </span><span class="s1">simulationResult) {</span>
+        <span class="s0">this</span><span class="s1">.simulationResult = simulationResult</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">/**</span>
+     * <span class="s4">@return </span><span class="s3">the isDraw</span>
+     */
+    <span class="s0">public boolean </span><span class="s1">isDraw() {</span>
+        <span class="s0">return </span><span class="s1">isDraw</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">/**</span>
+     * <span class="s4">@param </span><span class="s3">isDraw the isDraw to set</span>
+     */
+    <span class="s0">public void </span><span class="s1">setIsDraw(</span><span class="s0">boolean </span><span class="s1">isDraw) {</span>
+        <span class="s0">this</span><span class="s1">.isDraw = isDraw</span><span class="s0">;</span>
+    <span class="s1">}</span>
+}
+</pre>
+</body>
+</html>

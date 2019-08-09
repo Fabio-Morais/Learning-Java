@@ -1,0 +1,723 @@
+<html>
+<head>
+<title>GameScreen.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GameScreen.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">tictactoe</span><span class="s0">;</span>
+
+import <span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+import <span class="s1">java.util.List</span><span class="s0">;</span>
+import <span class="s1">java.util.Random</span><span class="s0">;</span>
+import <span class="s1">java.util.Scanner</span><span class="s0">;</span>
+
+public class <span class="s1">GameScreen {</span>
+    <span class="s0">private char</span><span class="s1">[][] symbols</span><span class="s0">;</span>
+    private int <span class="s1">numX</span><span class="s0">;</span>
+    private int <span class="s1">numO</span><span class="s0">;</span>
+
+    private int <span class="s1">whoPlay</span><span class="s0">;    </span><span class="s2">/* * 0-&gt; FIRST PLAYER * 1-&gt; SECOND PLAYER * */</span>
+    <span class="s0">public </span><span class="s1">String IASymbol</span><span class="s0">;</span>
+    public <span class="s1">String enemySymbol</span><span class="s0">;</span>
+
+    private static <span class="s1">Scanner scanner = </span><span class="s0">new </span><span class="s1">Scanner(System.in)</span><span class="s0">;</span>
+
+    <span class="s2">/*  CONSTRUCTURE*/</span>
+    <span class="s0">public </span><span class="s1">GameScreen() {</span>
+        <span class="s0">this</span><span class="s1">.symbols = </span><span class="s0">new char</span><span class="s1">[</span><span class="s3">3</span><span class="s1">][</span><span class="s3">3</span><span class="s1">]</span><span class="s0">;</span>
+        this<span class="s1">.resetGame()</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s2">/*      RESET VARIABLES AND SET &quot; &quot; TO ARRAY OF SYMBOLS     */</span>
+    <span class="s0">public void </span><span class="s1">resetGame() {</span>
+        numX = <span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">numO = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">whoPlay = </span><span class="s3">0</span><span class="s0">; </span><span class="s2">// I start first</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">j++)</span>
+                <span class="s0">this</span><span class="s1">.symbols[i][j] = </span><span class="s4">&quot; &quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">this</span><span class="s1">.printGame()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/*      SET SMBOLS BY STRING*/</span>
+    <span class="s0">public void </span><span class="s1">setSymbols(String cells) {</span>
+        System.out.println(cells.length())<span class="s0">;</span>
+        if <span class="s1">(cells.length() != </span><span class="s3">11</span><span class="s1">)</span>
+            System.out.println(<span class="s4">&quot;error&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        else <span class="s1">{</span>
+            <span class="s0">int </span><span class="s1">c = </span><span class="s3">0</span><span class="s0">;</span>
+            int <span class="s1">r = </span><span class="s3">0</span><span class="s0">;</span>
+            for <span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">1</span><span class="s0">; </span><span class="s1">i &lt; cells.length() - </span><span class="s3">1</span><span class="s0">; </span><span class="s1">i++) {</span>
+
+                <span class="s0">if </span><span class="s1">(i == </span><span class="s3">4 </span><span class="s1">|| i == </span><span class="s3">7</span><span class="s1">) {</span>
+                    c++<span class="s0">;</span>
+                    <span class="s1">r = </span><span class="s3">0</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s0">this</span><span class="s1">.symbols[c][r] = Character.toUpperCase(cells.charAt(i))</span><span class="s0">;</span>
+                if <span class="s1">(</span><span class="s0">this</span><span class="s1">.symbols[c][r] == </span><span class="s4">&quot;X&quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">))</span>
+                    numX++<span class="s0">;</span>
+                else if <span class="s1">(</span><span class="s0">this</span><span class="s1">.symbols[c][r] == </span><span class="s4">&quot;O&quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">))</span>
+                    numO++<span class="s0">;</span>
+                <span class="s1">r++</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        }
+    }
+
+    <span class="s2">/*      INPUT OF START  USER/EASY/MEDUM/HARD 
+     *       RETURN: ARRAY OF PLAYERS, [0]-&gt; first, [1]-&gt;second 
+     *       IE: START EASY USER     -&gt; [O]-&gt;EASY, [1]-&gt; USER 
+     *  */</span>
+    <span class="s0">public int</span><span class="s1">[] startMenu() {</span>
+        <span class="s0">int</span><span class="s1">[] option = </span><span class="s0">new int</span><span class="s1">[</span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s1">String[] splitStr</span><span class="s0">;</span>
+        while <span class="s1">(</span><span class="s0">true</span><span class="s1">) {</span>
+            System.out.print(<span class="s4">&quot;Input command: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">String string = scanner.nextLine()</span><span class="s0">;</span>
+            <span class="s1">splitStr = string.split(</span><span class="s4">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            if <span class="s1">(splitStr.length != </span><span class="s3">3</span><span class="s1">)</span>
+                System.out.println(<span class="s4">&quot;Bad parameters!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            else <span class="s1">{</span>
+                <span class="s0">if </span><span class="s1">(!splitStr[</span><span class="s3">0</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;START&quot;</span><span class="s1">))</span>
+                    System.out.println(<span class="s4">&quot;Bad parameters!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                else
+                    break;
+            <span class="s1">}</span>
+        }
+        <span class="s0">if </span><span class="s1">(splitStr[</span><span class="s3">1</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;USER&quot;</span><span class="s1">))</span>
+            option[<span class="s3">0</span><span class="s1">] = </span><span class="s3">0</span><span class="s0">;</span>
+        else if <span class="s1">(splitStr[</span><span class="s3">1</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;EASY&quot;</span><span class="s1">))</span>
+            option[<span class="s3">0</span><span class="s1">] = </span><span class="s3">1</span><span class="s0">;</span>
+        else if <span class="s1">(splitStr[</span><span class="s3">1</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;MEDIUM&quot;</span><span class="s1">))</span>
+            option[<span class="s3">0</span><span class="s1">] = </span><span class="s3">2</span><span class="s0">;</span>
+        else if <span class="s1">(splitStr[</span><span class="s3">1</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;HARD&quot;</span><span class="s1">)) {</span>
+            option[<span class="s3">0</span><span class="s1">] = </span><span class="s3">3</span><span class="s0">;</span>
+            <span class="s1">enemySymbol = </span><span class="s4">&quot;O&quot;</span><span class="s0">;</span>
+            <span class="s1">IASymbol = </span><span class="s4">&quot;X&quot;</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(splitStr[</span><span class="s3">2</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;USER&quot;</span><span class="s1">))</span>
+            option[<span class="s3">1</span><span class="s1">] = </span><span class="s3">0</span><span class="s0">;</span>
+        else if <span class="s1">(splitStr[</span><span class="s3">2</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;EASY&quot;</span><span class="s1">))</span>
+            option[<span class="s3">1</span><span class="s1">] = </span><span class="s3">1</span><span class="s0">;</span>
+        else if <span class="s1">(splitStr[</span><span class="s3">2</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;MEDIUM&quot;</span><span class="s1">))</span>
+            option[<span class="s3">1</span><span class="s1">] = </span><span class="s3">2</span><span class="s0">;</span>
+        else if <span class="s1">(splitStr[</span><span class="s3">2</span><span class="s1">].toUpperCase().equals(</span><span class="s4">&quot;HARD&quot;</span><span class="s1">)) {</span>
+            option[<span class="s3">1</span><span class="s1">] = </span><span class="s3">3</span><span class="s0">;</span>
+            <span class="s1">enemySymbol = </span><span class="s4">&quot;X&quot;</span><span class="s0">;</span>
+            <span class="s1">IASymbol = </span><span class="s4">&quot;O&quot;</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+
+        <span class="s0">return </span><span class="s1">option</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">printMenu(){</span>
+        System.out.println(<span class="s4">&quot;User vs user&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;User vs pc&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">printMenu2(){</span>
+        System.out.println(<span class="s4">&quot;Easy Mode&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;Medium Mode&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;Hard Mode&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s2">/*      MAKE A MOVE EASY (RANDOM)   */</span>
+    <span class="s0">public void </span><span class="s1">makeMoveEasy() {</span>
+        <span class="s2">/*1 to 3*/</span>
+        <span class="s0">int </span><span class="s1">x</span><span class="s0">, </span><span class="s1">y</span><span class="s0">;</span>
+
+        <span class="s1">Random random = </span><span class="s0">new </span><span class="s1">Random()</span><span class="s0">;</span>
+        <span class="s2">/* 
+         * ((Max - Min)+1) + 1 
+         * */</span>
+        <span class="s0">while </span><span class="s1">(</span><span class="s0">true</span><span class="s1">) {</span>
+            x = random.nextInt((<span class="s3">3 </span><span class="s1">- </span><span class="s3">1</span><span class="s1">) + </span><span class="s3">1</span><span class="s1">) + </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">y = random.nextInt((</span><span class="s3">3 </span><span class="s1">- </span><span class="s3">1</span><span class="s1">) + </span><span class="s3">1</span><span class="s1">) + </span><span class="s3">1</span><span class="s0">;</span>
+            if <span class="s1">(</span><span class="s0">this</span><span class="s1">.isEmpty(x</span><span class="s0">, </span><span class="s1">y))</span>
+                <span class="s0">break;</span>
+        <span class="s1">}</span>
+        <span class="s0">this</span><span class="s1">.setSymbols(x</span><span class="s0">, </span><span class="s1">y)</span><span class="s0">;</span>
+        this<span class="s1">.changeWhoPlay()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/*      MAKE A MOVE EASY (RANDOM)   */</span>
+    <span class="s0">public void </span><span class="s1">makeMoveMedium() {</span>
+        <span class="s0">if </span><span class="s1">(!</span><span class="s0">this</span><span class="s1">.winMove()) {</span><span class="s2">// if can't win</span>
+            <span class="s0">if </span><span class="s1">(!</span><span class="s0">this</span><span class="s1">.enemyWinMove()) </span><span class="s2">// if can't combat the enemy</span>
+                <span class="s0">this</span><span class="s1">.makeMoveEasy()</span><span class="s0">;</span><span class="s2">//random move</span>
+        <span class="s1">}</span>
+
+    }
+
+    <span class="s0">public </span><span class="s1">Move makeMoveHard(</span><span class="s0">char</span><span class="s1">[][] board</span><span class="s0">, </span><span class="s1">String player) {</span>
+        Move minimaxResult = <span class="s0">new </span><span class="s1">Move()</span><span class="s0">;</span>
+        int <span class="s1">bestResult = -</span><span class="s3">11</span><span class="s0">;</span>
+        <span class="s2">/* 
+        * 0-&gt; Y, i 
+        * 1-&gt; X, j 
+        * */</span>
+        <span class="s0">int</span><span class="s1">[][] availableSpaces= emptyIndexies(board)</span><span class="s0">;</span>
+        if<span class="s1">(availableSpaces.length == </span><span class="s3">8 </span><span class="s1">&amp;&amp; board[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] == </span><span class="s4">&quot; &quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)){</span>
+            minimaxResult.setSimulationResult(<span class="s3">10</span><span class="s1">)</span><span class="s0">;</span>
+            int<span class="s1">[] aux= winning(board</span><span class="s0">, </span><span class="s1">IASymbol)</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setxCoordinates(</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setyCoordinates(</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+            return <span class="s1">minimaxResult</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if</span><span class="s1">(winning(board</span><span class="s0">, </span><span class="s1">IASymbol) != </span><span class="s0">null </span><span class="s1">){</span>
+            System.out.println(<span class="s4">&quot;ia&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setSimulationResult(</span><span class="s3">10</span><span class="s1">)</span><span class="s0">;</span>
+            int<span class="s1">[] aux= winning(board</span><span class="s0">, </span><span class="s1">IASymbol)</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setxCoordinates(aux[</span><span class="s3">1</span><span class="s1">])</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setyCoordinates(aux[</span><span class="s3">0</span><span class="s1">])</span><span class="s0">;</span>
+            return <span class="s1">minimaxResult</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else if</span><span class="s1">(winning(board</span><span class="s0">, </span><span class="s1">enemySymbol) != </span><span class="s0">null</span><span class="s1">){</span>
+            System.out.println(<span class="s4">&quot;enem&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setSimulationResult(-</span><span class="s3">10</span><span class="s1">)</span><span class="s0">;</span>
+            int<span class="s1">[] aux= winning(board</span><span class="s0">, </span><span class="s1">enemySymbol)</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setxCoordinates(aux[</span><span class="s3">1</span><span class="s1">])</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setyCoordinates(aux[</span><span class="s3">0</span><span class="s1">])</span><span class="s0">;</span>
+            return <span class="s1">minimaxResult</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else if</span><span class="s1">(availableSpaces.length == </span><span class="s3">0</span><span class="s1">){</span>
+            minimaxResult.setSimulationResult(<span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">minimaxResult.setIsDraw(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+            return <span class="s1">minimaxResult</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        List&lt;Move&gt; moves = <span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        for<span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s3">0</span><span class="s0">; </span><span class="s1">i&lt;availableSpaces.length</span><span class="s0">; </span><span class="s1">i++){</span>
+
+            Move currentResult = <span class="s0">new </span><span class="s1">Move()</span><span class="s0">;</span>
+            <span class="s1">currentResult.setxCoordinates(availableSpaces[i][</span><span class="s3">1</span><span class="s1">])</span><span class="s0">;</span>
+            <span class="s1">currentResult.setyCoordinates(availableSpaces[i][</span><span class="s3">0</span><span class="s1">])</span><span class="s0">;</span>
+
+            <span class="s2">// set the empty spot to the current player</span>
+            <span class="s1">board[availableSpaces[i][</span><span class="s3">0</span><span class="s1">]][availableSpaces[i][</span><span class="s3">1</span><span class="s1">]] = player.charAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s2">//if collect the score resulted from calling minimax on the opponent of the current player</span>
+            <span class="s1">String aux=</span><span class="s4">&quot;X&quot;</span><span class="s0">;</span>
+            if<span class="s1">(player.equals(IASymbol)){</span>
+                aux= enemySymbol<span class="s0">;</span>
+            <span class="s1">}</span><span class="s0">else if</span><span class="s1">(player.equals(enemySymbol)){</span>
+                aux= IASymbol<span class="s0">;</span>
+            <span class="s1">}</span>
+            Move currentResultAux= makeMoveHard(board<span class="s0">, </span><span class="s1">aux)</span><span class="s0">;</span>
+            <span class="s1">currentResult.setSimulationResult(currentResultAux.getSimulationResult())</span><span class="s0">;</span>
+
+            <span class="s1">moves.add(currentResult)</span><span class="s0">;</span>
+            <span class="s1">board[availableSpaces[i][</span><span class="s3">0</span><span class="s1">]][availableSpaces[i][</span><span class="s3">1</span><span class="s1">]] = </span><span class="s4">&quot; &quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+
+           <span class="s2">/* if(player.equals(IASymbol)){ 
+                if(bestResult &lt; currentResult.getSimulationResult() || bestResult == -11){ 
+                    bestResult = currentResult.getSimulationResult(); 
+                    minimaxResult.setSimulationResult(currentResult.getSimulationResult()); 
+                    minimaxResult.setxCoordinates(availableSpaces[i][1]); 
+                    minimaxResult.setyCoordinates(availableSpaces[i][0]); 
+                } 
+            }else { 
+                if(bestResult &gt; currentResult.getSimulationResult() || bestResult == -11){ 
+                    bestResult = currentResult.getSimulationResult(); 
+                    minimaxResult.setSimulationResult(currentResult.getSimulationResult()); 
+                    minimaxResult.setxCoordinates(availableSpaces[i][1]); 
+                    minimaxResult.setyCoordinates(availableSpaces[i][0]); 
+                } 
+            }*/</span>
+        <span class="s1">}</span>
+
+        <span class="s0">int </span><span class="s1">bestMove=</span><span class="s3">0</span><span class="s0">;</span>
+        if<span class="s1">(player.equals(IASymbol)){</span>
+            <span class="s0">int </span><span class="s1">bestScore=-</span><span class="s3">10000</span><span class="s0">;</span>
+            for<span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s3">0</span><span class="s0">; </span><span class="s1">i&lt;moves.size()</span><span class="s0">; </span><span class="s1">i++){</span>
+
+                <span class="s0">if</span><span class="s1">(moves.get(i).getSimulationResult() &gt; bestScore){</span>
+                    bestScore =  moves.get(i).getSimulationResult()<span class="s0">;</span>
+                    <span class="s1">bestMove = i</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            }
+        }<span class="s0">else</span><span class="s1">{</span>
+            <span class="s0">int </span><span class="s1">bestScore= </span><span class="s3">10000</span><span class="s0">;</span>
+            for<span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s3">0</span><span class="s0">; </span><span class="s1">i&lt;moves.size()</span><span class="s0">; </span><span class="s1">i++){</span>
+                <span class="s0">if</span><span class="s1">(moves.get(i).getSimulationResult() &lt; bestScore){</span>
+                    bestScore =  moves.get(i).getSimulationResult()<span class="s0">;</span>
+                    <span class="s1">bestMove = i</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            }
+
+        }
+        System.out.println(moves.get(bestMove).getxCoordinates() + <span class="s4">&quot; .&gt; &quot;</span><span class="s1">+  moves.get(bestMove).getyCoordinates())</span><span class="s0">;</span>
+
+        return <span class="s1">moves.get(bestMove)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">winMove() {</span>
+        String winV<span class="s0">, </span><span class="s1">winH</span><span class="s0">, </span><span class="s1">mySymbol</span><span class="s0">;</span>
+        int <span class="s1">r = -</span><span class="s3">1</span><span class="s0">;</span>
+        int <span class="s1">c = -</span><span class="s3">1</span><span class="s0">;</span>
+        boolean <span class="s1">set = </span><span class="s0">false;</span>
+        if <span class="s1">(whoPlay == </span><span class="s3">0</span><span class="s1">)</span>
+            mySymbol = <span class="s4">&quot;X&quot;</span><span class="s0">;</span>
+        else if <span class="s1">(whoPlay == </span><span class="s3">1</span><span class="s1">)</span>
+            mySymbol = <span class="s4">&quot;O&quot;</span><span class="s0">;</span>
+        else
+            <span class="s1">mySymbol = </span><span class="s4">&quot;error&quot;</span><span class="s0">;</span>
+
+
+        for <span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s2">/*horizontal*/</span>
+            <span class="s1">winH = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">0</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s2">/*vertical*/</span>
+            <span class="s1">winV = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][i] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][i] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][i]</span><span class="s0">;</span>
+
+            <span class="s2">/*  HORIZONTAL  */</span>
+            <span class="s0">if </span><span class="s1">(winH.equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ mySymbol + mySymbol)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">0</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winH.equals(mySymbol + </span><span class="s4">&quot; &quot; </span><span class="s1">+ mySymbol)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winH.equals(mySymbol + mySymbol + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  VERTICAL  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ mySymbol + mySymbol)) {</span>
+                c = <span class="s3">0</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  &quot;X X&quot;  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(mySymbol + </span><span class="s4">&quot; &quot; </span><span class="s1">+ mySymbol)) {</span>
+                c = <span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  &quot;XX &quot;  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(mySymbol + mySymbol + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+                c = <span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">}</span>
+        }
+        <span class="s2">/*Diagonal*/</span>
+        <span class="s1">String winD = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">0</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][</span><span class="s3">2</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">2</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][</span><span class="s3">0</span><span class="s1">]</span><span class="s0">;</span>
+
+        if <span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(mySymbol + mySymbol + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+            r = <span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(mySymbol + </span><span class="s4">&quot; &quot; </span><span class="s1">+ mySymbol)) {</span>
+            r = <span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ mySymbol + mySymbol)) {</span>
+            r = <span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(mySymbol + mySymbol + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+            r = <span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(mySymbol + </span><span class="s4">&quot; &quot; </span><span class="s1">+ mySymbol)) {</span>
+            r = <span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ mySymbol + mySymbol)) {</span>
+            r = <span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">this</span><span class="s1">.setSymbols(r</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">set)</span><span class="s0">;</span>
+        return <span class="s1">set</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">enemyWinMove() {</span>
+        String winV<span class="s0">, </span><span class="s1">winH</span><span class="s0">, </span><span class="s1">enemySymbol</span><span class="s0">;</span>
+        int <span class="s1">r = -</span><span class="s3">1</span><span class="s0">;</span>
+        int <span class="s1">c = -</span><span class="s3">1</span><span class="s0">;</span>
+        boolean <span class="s1">set = </span><span class="s0">false;</span>
+        if <span class="s1">(whoPlay == </span><span class="s3">0</span><span class="s1">)</span>
+            enemySymbol = <span class="s4">&quot;O&quot;</span><span class="s0">;</span>
+        else if <span class="s1">(whoPlay == </span><span class="s3">1</span><span class="s1">)</span>
+            enemySymbol = <span class="s4">&quot;X&quot;</span><span class="s0">;</span>
+        else
+            <span class="s1">enemySymbol = </span><span class="s4">&quot;error&quot;</span><span class="s0">;</span>
+
+
+        for <span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s2">/*horizontal*/</span>
+            <span class="s1">winH = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">0</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s2">/*vertical*/</span>
+            <span class="s1">winV = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][i] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][i] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][i]</span><span class="s0">;</span>
+
+            <span class="s2">/*  HORIZONTAL  */</span>
+            <span class="s0">if </span><span class="s1">(winH.equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ enemySymbol + enemySymbol)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">0</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winH.equals(enemySymbol + </span><span class="s4">&quot; &quot; </span><span class="s1">+ enemySymbol)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winH.equals(enemySymbol + enemySymbol + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  VERTICAL  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ enemySymbol + enemySymbol)) {</span>
+                c = <span class="s3">0</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  &quot;X X&quot;  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(enemySymbol + </span><span class="s4">&quot; &quot; </span><span class="s1">+ enemySymbol)) {</span>
+                c = <span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  &quot;XX &quot;  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(enemySymbol + enemySymbol + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+                c = <span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">}</span>
+        }
+        <span class="s2">/*Diagonal*/</span>
+        <span class="s1">String winD = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">0</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][</span><span class="s3">2</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">2</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][</span><span class="s3">0</span><span class="s1">]</span><span class="s0">;</span>
+
+        if <span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(enemySymbol + enemySymbol + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+            r = <span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(enemySymbol + </span><span class="s4">&quot; &quot; </span><span class="s1">+ enemySymbol)) {</span>
+            r = <span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ enemySymbol + enemySymbol)) {</span>
+            r = <span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(enemySymbol + enemySymbol + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+            r = <span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(enemySymbol + </span><span class="s4">&quot; &quot; </span><span class="s1">+ enemySymbol)) {</span>
+            r = <span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ enemySymbol + enemySymbol)) {</span>
+            r = <span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">this</span><span class="s1">.setSymbols(r</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">set)</span><span class="s0">;</span>
+        return <span class="s1">set</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int</span><span class="s1">[] winning(</span><span class="s0">char</span><span class="s1">[][] board</span><span class="s0">, </span><span class="s1">String symbolPlay) {</span>
+        String winV<span class="s0">, </span><span class="s1">winH</span><span class="s0">;</span>
+        int <span class="s1">r = -</span><span class="s3">1</span><span class="s0">;</span>
+        int <span class="s1">c = -</span><span class="s3">1</span><span class="s0">;</span>
+        boolean <span class="s1">set = </span><span class="s0">false;</span>
+
+
+        for <span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s2">/*horizontal*/</span>
+            <span class="s1">winH = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">0</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s2">/*vertical*/</span>
+            <span class="s1">winV = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][i] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][i] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][i]</span><span class="s0">;</span>
+
+            <span class="s2">/*  HORIZONTAL  */</span>
+            <span class="s0">if </span><span class="s1">(winH.equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ symbolPlay + symbolPlay)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">0</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winH.equals(symbolPlay + </span><span class="s4">&quot; &quot; </span><span class="s1">+ symbolPlay)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winH.equals(symbolPlay + symbolPlay + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+                c = i<span class="s0">;</span>
+                <span class="s1">r = </span><span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  VERTICAL  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ symbolPlay + symbolPlay)) {</span>
+                c = <span class="s3">0</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  &quot;X X&quot;  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(symbolPlay + </span><span class="s4">&quot; &quot; </span><span class="s1">+ symbolPlay)) {</span>
+                c = <span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+                <span class="s2">/*  &quot;XX &quot;  */</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winV.equals(symbolPlay + symbolPlay + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+                c = <span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">r = i</span><span class="s0">;</span>
+                <span class="s1">set = </span><span class="s0">true;</span>
+                break;
+            <span class="s1">}</span>
+        }
+        <span class="s2">/*Diagonal*/</span>
+        <span class="s1">String winD = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">0</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][</span><span class="s3">2</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">2</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][</span><span class="s3">0</span><span class="s1">]</span><span class="s0">;</span>
+
+        if <span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(symbolPlay + symbolPlay + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+            r = <span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(symbolPlay + </span><span class="s4">&quot; &quot; </span><span class="s1">+ symbolPlay)) {</span>
+            r = <span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ symbolPlay + symbolPlay)) {</span>
+            r = <span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(symbolPlay + symbolPlay + </span><span class="s4">&quot; &quot;</span><span class="s1">)) {</span>
+            r = <span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(symbolPlay + </span><span class="s4">&quot; &quot; </span><span class="s1">+ symbolPlay)) {</span>
+            r = <span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(</span><span class="s4">&quot; &quot; </span><span class="s1">+ symbolPlay + symbolPlay)) {</span>
+            r = <span class="s3">2</span><span class="s0">;</span>
+            <span class="s1">c = </span><span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">set = </span><span class="s0">true;</span>
+        <span class="s1">}</span>
+        <span class="s0">if</span><span class="s1">(r!=-</span><span class="s3">1 </span><span class="s1">&amp;&amp; c!= -</span><span class="s3">1</span><span class="s1">){</span>
+            <span class="s0">int</span><span class="s1">[] coord = </span><span class="s0">new int</span><span class="s1">[</span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s1">coord[</span><span class="s3">1</span><span class="s1">]=r</span><span class="s0">;</span>
+            <span class="s1">coord[</span><span class="s3">0</span><span class="s1">]=c</span><span class="s0">;</span>
+            return <span class="s1">coord</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else</span>
+            return null;
+    <span class="s1">}</span>
+
+    <span class="s0">public int</span><span class="s1">[][] emptyIndexies(</span><span class="s0">char</span><span class="s1">[][] board) {</span>
+        <span class="s0">int </span><span class="s1">count = </span><span class="s3">0</span><span class="s0">;</span>
+        for <span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(board[i][j] == </span><span class="s4">&quot; &quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)) {</span>
+                    count++<span class="s0">;</span>
+                <span class="s1">}</span>
+
+            }
+        }
+        <span class="s0">int</span><span class="s1">[][] array = </span><span class="s0">new int</span><span class="s1">[count][</span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s1">count = </span><span class="s3">0</span><span class="s0">;</span>
+        for <span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(board[i][j] == </span><span class="s4">&quot; &quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)) {</span>
+                    array[count][<span class="s3">0</span><span class="s1">] = i</span><span class="s0">;</span>
+                    <span class="s1">array[count][</span><span class="s3">1</span><span class="s1">] = j</span><span class="s0">;</span>
+                    <span class="s1">count++</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+            }
+        }
+        <span class="s0">return </span><span class="s1">array</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s2">/*      REQUEST COORDINATES FOR USER PLAYER */</span>
+    <span class="s0">public boolean </span><span class="s1">requestCoord() {</span>
+        <span class="s0">int </span><span class="s1">aux</span><span class="s0">;</span>
+        int <span class="s1">x = </span><span class="s3">4</span><span class="s0">;</span>
+        int <span class="s1">y = </span><span class="s3">4</span><span class="s0">;</span>
+
+        while <span class="s1">(</span><span class="s0">true</span><span class="s1">) {</span>
+            System.out.print(<span class="s4">&quot;Enter the number: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            if<span class="s1">(!scanner.hasNextInt()){</span>
+                System.out.println(<span class="s4">&quot;invalid, just numbers allow&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+           <span class="s0">else</span><span class="s1">{</span>
+                aux = scanner.nextInt()<span class="s0">;</span>
+                if <span class="s1">((aux&gt;</span><span class="s3">9 </span><span class="s1">&amp;&amp; aux &lt;</span><span class="s3">1</span><span class="s1">) )</span>
+                    System.out.println(<span class="s4">&quot;You should enter valid numbers (1-9) !&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                else <span class="s1">{</span>
+                    <span class="s0">break;</span>
+                <span class="s1">}</span>
+            }
+
+        }
+        <span class="s0">switch </span><span class="s1">(aux){</span>
+            <span class="s0">case </span><span class="s3">1</span><span class="s1">:</span>
+                x=<span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">1</span><span class="s0">;</span>
+                break;
+            case <span class="s3">2</span><span class="s1">:</span>
+                x=<span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">1</span><span class="s0">;</span>
+                break;
+            case <span class="s3">3</span><span class="s1">:</span>
+                x=<span class="s3">3</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">1</span><span class="s0">;</span>
+                break;
+            case <span class="s3">4</span><span class="s1">:</span>
+                x=<span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">2</span><span class="s0">;</span>
+                break;
+            case <span class="s3">5</span><span class="s1">:</span>
+                x=<span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">2</span><span class="s0">;</span>
+                break;
+            case <span class="s3">6</span><span class="s1">:</span>
+                x=<span class="s3">3</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">2</span><span class="s0">;</span>
+                break;
+            case <span class="s3">7</span><span class="s1">:</span>
+                x=<span class="s3">1</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">3</span><span class="s0">;</span>
+                break;
+            case <span class="s3">8</span><span class="s1">:</span>
+                x=<span class="s3">2</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">3</span><span class="s0">;</span>
+                break;
+            case <span class="s3">9</span><span class="s1">:</span>
+                x=<span class="s3">3</span><span class="s0">;</span>
+                <span class="s1">y=</span><span class="s3">3</span><span class="s0">;</span>
+                break;
+        <span class="s1">}</span>
+        <span class="s0">this</span><span class="s1">.setSymbols(x</span><span class="s0">, </span><span class="s1">y)</span><span class="s0">;</span>
+        this<span class="s1">.changeWhoPlay()</span><span class="s0">;</span>
+        return true;
+    <span class="s1">}</span>
+
+    <span class="s2">/*      CHECK IF IS EMPTY   (X,Y) 
+     *       RETURN: TRUE / FALSE    */</span>
+    <span class="s0">public boolean </span><span class="s1">isEmpty(</span><span class="s0">int </span><span class="s1">x</span><span class="s0">, int </span><span class="s1">y) {</span>
+        <span class="s0">int </span><span class="s1">x1 = Math.abs(x - </span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+        int <span class="s1">y1 = Math.abs(y - </span><span class="s3">3</span><span class="s1">)</span><span class="s0">;</span>
+
+        return this<span class="s1">.symbols[y1][x1] == </span><span class="s4">&quot; &quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s2">/*      PRINT ALL ARRAY OF SYMBOLS  */</span>
+    <span class="s0">public void </span><span class="s1">printGame() {</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">5</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if </span><span class="s1">(i == </span><span class="s3">0 </span><span class="s1">|| i == </span><span class="s3">4</span><span class="s1">)</span>
+                System.out.println(<span class="s4">&quot;---------&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            else <span class="s1">{</span>
+                System.out.print(<span class="s4">&quot;| &quot;</span><span class="s1">)</span><span class="s0">;</span>
+                for <span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                    System.out.print(symbols[i - <span class="s3">1</span><span class="s1">][j] + </span><span class="s4">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                System.out.print(<span class="s4">&quot;|</span><span class="s0">\n</span><span class="s4">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+        }
+
+
+    }
+
+    <span class="s2">/*      SET SMBOLS BY COORDINATES   */</span>
+    <span class="s0">public void </span><span class="s1">setSymbols(</span><span class="s0">int </span><span class="s1">x</span><span class="s0">, int </span><span class="s1">y) {</span>
+        <span class="s0">int </span><span class="s1">x1 = Math.abs(x - </span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+        int <span class="s1">y1 = Math.abs(y - </span><span class="s3">3</span><span class="s1">)</span><span class="s0">;</span>
+        if <span class="s1">(whoPlay == </span><span class="s3">0</span><span class="s1">) {</span>
+            <span class="s0">this</span><span class="s1">.symbols[y1][x1] = </span><span class="s4">&quot;X&quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">numX++</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(whoPlay == </span><span class="s3">1</span><span class="s1">) {</span>
+            <span class="s0">this</span><span class="s1">.symbols[y1][x1] = </span><span class="s4">&quot;O&quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">numO++</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    }
+
+    <span class="s0">public void </span><span class="s1">setSymbols(</span><span class="s0">int </span><span class="s1">r</span><span class="s0">, int </span><span class="s1">c</span><span class="s0">, boolean </span><span class="s1">aux) {</span>
+        <span class="s0">if </span><span class="s1">(aux) {</span>
+            <span class="s0">if </span><span class="s1">(whoPlay == </span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s0">this</span><span class="s1">.symbols[c][r] = </span><span class="s4">&quot;X&quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">numX++</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(whoPlay == </span><span class="s3">1</span><span class="s1">) {</span>
+                <span class="s0">this</span><span class="s1">.symbols[c][r] = </span><span class="s4">&quot;O&quot;</span><span class="s1">.charAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">numO++</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s0">this</span><span class="s1">.changeWhoPlay()</span><span class="s0">;</span><span class="s2">//change turn</span>
+        <span class="s1">}</span>
+    }
+
+    <span class="s2">/*      CHECK IF GAME IS FINISHED AND PRINT*/</span>
+    <span class="s0">public boolean </span><span class="s1">gameState() {</span>
+        <span class="s0">boolean </span><span class="s1">xWins = </span><span class="s0">false;</span>
+        boolean <span class="s1">oWins = </span><span class="s0">false;</span>
+        <span class="s1">String winV</span><span class="s0">, </span><span class="s1">winH</span><span class="s0">, </span><span class="s1">winD</span><span class="s0">;</span>
+        <span class="s2">/*Diagonal*/</span>
+        <span class="s1">winD = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">0</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][</span><span class="s3">2</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">2</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][</span><span class="s3">0</span><span class="s1">]</span><span class="s0">;</span>
+
+        for <span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s2">/*vertical*/</span>
+            <span class="s1">winH = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">0</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">1</span><span class="s1">] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[i][</span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s2">/*horizontal*/</span>
+            <span class="s1">winV = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">0</span><span class="s1">][i] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">1</span><span class="s1">][i] + </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.symbols[</span><span class="s3">2</span><span class="s1">][i]</span><span class="s0">;</span>
+
+            if <span class="s1">(winV.equals(</span><span class="s4">&quot;XXX&quot;</span><span class="s1">) || winH.equals(</span><span class="s4">&quot;XXX&quot;</span><span class="s1">) || winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(</span><span class="s4">&quot;XXX&quot;</span><span class="s1">) || winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(</span><span class="s4">&quot;XXX&quot;</span><span class="s1">))</span>
+                xWins = <span class="s0">true;</span>
+            else if <span class="s1">(winV.equals(</span><span class="s4">&quot;OOO&quot;</span><span class="s1">) || winH.equals(</span><span class="s4">&quot;OOO&quot;</span><span class="s1">) || winD.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s3">3</span><span class="s1">).equals(</span><span class="s4">&quot;OOO&quot;</span><span class="s1">) || winD.substring(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">6</span><span class="s1">).equals(</span><span class="s4">&quot;OOO&quot;</span><span class="s1">))</span>
+                oWins = <span class="s0">true;</span>
+
+        <span class="s1">}</span>
+
+        <span class="s2">/* Print game state */</span>
+        <span class="s0">if </span><span class="s1">(xWins &amp;&amp; oWins || (Math.abs(numX - numO) &gt; </span><span class="s3">1</span><span class="s1">))</span>
+            System.out.println(<span class="s4">&quot;Impossible&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        else if <span class="s1">(xWins)</span>
+            System.out.println(<span class="s4">&quot;X wins&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        else if <span class="s1">(oWins)</span>
+            System.out.println(<span class="s4">&quot;O wins&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        else if <span class="s1">((numO + numX) != </span><span class="s3">9</span><span class="s1">) {</span>
+            <span class="s2">//System.out.println(&quot;Game not finished&quot;);</span>
+            <span class="s0">return false;</span>
+        <span class="s1">} </span><span class="s0">else</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;Draw&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        return true;
+    <span class="s1">}</span>
+
+    <span class="s2">/*      CHANGE THE VALUE OF WHOPLAY VARIABLE*/</span>
+    <span class="s0">private void </span><span class="s1">changeWhoPlay() {</span>
+        <span class="s0">if </span><span class="s1">(whoPlay == </span><span class="s3">0</span><span class="s1">)</span>
+            whoPlay = <span class="s3">1</span><span class="s0">;</span>
+        else if <span class="s1">(whoPlay == </span><span class="s3">1</span><span class="s1">)</span>
+            whoPlay = <span class="s3">0</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public char</span><span class="s1">[][] getSymbols() {</span>
+        <span class="s0">return </span><span class="s1">symbols</span><span class="s0">;</span>
+    <span class="s1">}</span>
+}
+</pre>
+</body>
+</html>
