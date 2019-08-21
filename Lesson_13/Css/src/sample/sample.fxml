@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.web.WebView?>
+
+<GridPane fx:id="gridPane" alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="sample.Controller">
+    <Button onAction="#handleClick" text="click..." GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <Button text="button 2" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Button id="button3" text="button 3" GridPane.columnIndex="3" />
+    <Button fx:id="button4" text="button 4" GridPane.columnIndex="5" />
+    <RadioButton text="choose one" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <Hyperlink onAction="#handleLinClick" text="www.javafx.com" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+
+    <WebView fx:id="webView" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="3" />
+
+    <Label fx:id="label" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" rotate="90" text="JavaFx Effects" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

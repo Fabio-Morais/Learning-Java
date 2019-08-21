@@ -1,3 +1,5 @@
+package tictactoe;
+
 import java.util.Scanner;
 
 public class Main {
@@ -39,8 +41,7 @@ public class Main {
                 break;
             case 3:
                 System.out.println("Making move level \"hard\"");
-                Move move =tikTak.makeMoveHard(tikTak.getSymbols(), tikTak.IASymbol);
-                tikTak.setSymbols(move.getxCoordinates(), move.getyCoordinates(), true);
+                tikTak.makeMoveMedium();
                 break;
             default:
                 break;

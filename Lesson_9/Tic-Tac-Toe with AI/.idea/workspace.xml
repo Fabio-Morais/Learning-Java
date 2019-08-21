@@ -8,6 +8,8 @@
     <ignored path="$PROJECT_DIR$/Tic-Tac-Toe with AI/task/build/" />
     <ignored path="$PROJECT_DIR$/util/.gradle/" />
     <ignored path="$PROJECT_DIR$/util/build/" />
+    <ignored path="$PROJECT_DIR$/Tic-Tac-Toe with AI/task/out/" />
+    <ignored path="$PROJECT_DIR$/util/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,21 +69,10 @@
           <provider selected="true" editor-type-id="StudyEditor">
             <state>
               <EduEditorState>
-                <MainEditorState relative-caret-position="444">
-                  <caret line="146" column="13" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
+                <MainEditorState relative-caret-position="-5">
+                  <caret line="437" column="82" selection-start-line="437" selection-start-column="75" selection-end-line="437" selection-end-column="82" />
                   <folding>
-                    <element signature="method#setSymbols#0;class#GameScreen#0" />
-                    <element signature="method#startMenu#0;class#GameScreen#0" />
-                    <element signature="method#makeMoveEasy#0;class#GameScreen#0" />
-                    <element signature="method#makeMoveMedium#0;class#GameScreen#0" />
-                    <element signature="method#makeMoveHard#0;class#GameScreen#0" />
-                    <element signature="method#winMove#0;class#GameScreen#0" />
-                    <element signature="method#enemyWinMove#0;class#GameScreen#0" />
-                    <element signature="method#winning#0;class#GameScreen#0" />
-                    <element signature="method#emptyIndexies#0;class#GameScreen#0" />
-                    <element signature="method#isEmpty#0;class#GameScreen#0" />
                     <element signature="method#printGame#0;class#GameScreen#0" />
-                    <element signature="method#setSymbols#1;class#GameScreen#0" />
                     <element signature="method#setSymbols#2;class#GameScreen#0" />
                     <element signature="method#gameState#0;class#GameScreen#0" />
                     <element signature="method#changeWhoPlay#0;class#GameScreen#0" />
@@ -97,8 +88,8 @@
           <provider selected="true" editor-type-id="StudyEditor">
             <state>
               <EduEditorState>
-                <MainEditorState relative-caret-position="918">
-                  <caret line="54" column="49" selection-start-line="54" selection-start-column="49" selection-end-line="54" selection-end-column="49" />
+                <MainEditorState relative-caret-position="153">
+                  <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
                 </MainEditorState>
               </EduEditorState>
             </state>
@@ -117,6 +108,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>changeWhoPlay</find>
+      <find>setSymbols</find>
     </findStrings>
     <replaceStrings>
       <replace>mySymbol</replace>
@@ -141,7 +133,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="1358" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
@@ -151,9 +143,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Course" />
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="Course" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -242,9 +234,10 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="1358" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.27382752" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.27836612" />
       <window_info id="Structure" order="1" sideWeight="0.502455" side_tool="true" weight="0.21331316" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -281,25 +274,25 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Tic-Tac-Toe with AI/task/src/tictactoe/GameScreen.java</url>
-          <line>248</line>
+          <line>140</line>
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Tic-Tac-Toe with AI/task/src/tictactoe/GameScreen.java</url>
-          <line>335</line>
+          <line>227</line>
           <properties />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Tic-Tac-Toe with AI/task/src/tictactoe/GameScreen.java</url>
-          <line>153</line>
+          <line>134</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Tic-Tac-Toe with AI/task/src/tictactoe/GameScreen.java</url>
-          <line>247</line>
+          <line>139</line>
           <properties />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
@@ -374,6 +367,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Tic-Tac-Toe with AI/task/src/tictactoe/Move.java">
+      <provider selected="true" editor-type-id="StudyEditor">
+        <state>
+          <EduEditorState>
+            <MainEditorState relative-caret-position="153">
+              <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+            </MainEditorState>
+          </EduEditorState>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Tic-Tac-Toe with AI/task/src/tictactoe/Main.java">
       <provider selected="true" editor-type-id="StudyEditor">
         <state>
@@ -385,36 +389,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tic-Tac-Toe with AI/task/src/tictactoe/Move.java">
-      <provider selected="true" editor-type-id="StudyEditor">
-        <state>
-          <EduEditorState>
-            <MainEditorState relative-caret-position="918">
-              <caret line="54" column="49" selection-start-line="54" selection-start-column="49" selection-end-line="54" selection-end-column="49" />
-            </MainEditorState>
-          </EduEditorState>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tic-Tac-Toe with AI/task/src/tictactoe/GameScreen.java">
       <provider selected="true" editor-type-id="StudyEditor">
         <state>
           <EduEditorState>
-            <MainEditorState relative-caret-position="444">
-              <caret line="146" column="13" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
+            <MainEditorState relative-caret-position="-5">
+              <caret line="437" column="82" selection-start-line="437" selection-start-column="75" selection-end-line="437" selection-end-column="82" />
               <folding>
-                <element signature="method#setSymbols#0;class#GameScreen#0" />
-                <element signature="method#startMenu#0;class#GameScreen#0" />
-                <element signature="method#makeMoveEasy#0;class#GameScreen#0" />
-                <element signature="method#makeMoveMedium#0;class#GameScreen#0" />
-                <element signature="method#makeMoveHard#0;class#GameScreen#0" />
-                <element signature="method#winMove#0;class#GameScreen#0" />
-                <element signature="method#enemyWinMove#0;class#GameScreen#0" />
-                <element signature="method#winning#0;class#GameScreen#0" />
-                <element signature="method#emptyIndexies#0;class#GameScreen#0" />
-                <element signature="method#isEmpty#0;class#GameScreen#0" />
                 <element signature="method#printGame#0;class#GameScreen#0" />
-                <element signature="method#setSymbols#1;class#GameScreen#0" />
                 <element signature="method#setSymbols#2;class#GameScreen#0" />
                 <element signature="method#gameState#0;class#GameScreen#0" />
                 <element signature="method#changeWhoPlay#0;class#GameScreen#0" />

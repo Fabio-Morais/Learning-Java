@@ -1,6 +1,5 @@
+package tictactoe;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -35,7 +34,7 @@ public class GameScreen {
     }
 
     /*      SET SMBOLS BY STRING*/
-    public void setSymbols(String cells) {
+    /*public void setSymbols(String crequestCoordells) {
         System.out.println(cells.length());
         if (cells.length() != 11)
             System.out.println("error");
@@ -56,7 +55,7 @@ public class GameScreen {
                 r++;
             }
         }
-    }
+    }*/
 
     /*      INPUT OF START  USER/EASY/MEDUM/HARD
      *       RETURN: ARRAY OF PLAYERS, [0]-> first, [1]->second
@@ -106,15 +105,6 @@ public class GameScreen {
         return option;
     }
 
-    public void printMenu(){
-        System.out.println("User vs user");
-        System.out.println("User vs pc");
-    }
-    public void printMenu2(){
-        System.out.println("Easy Mode");
-        System.out.println("Medium Mode");
-        System.out.println("Hard Mode");
-    }
     /*      MAKE A MOVE EASY (RANDOM)   */
     public void makeMoveEasy() {
         /*1 to 3*/
@@ -143,105 +133,7 @@ public class GameScreen {
 
     }
 
-    public Move makeMoveHard(char[][] board, String player) {
-        Move minimaxResult = new Move();
-        int bestResult = -11;
-        /*
-        * 0-> Y, i
-        * 1-> X, j
-        * */
-        int[][] availableSpaces= emptyIndexies(board);
-        if(availableSpaces.length == 8 && board[1][1] == " ".charAt(0)){
-            minimaxResult.setSimulationResult(10);
-            int[] aux= winning(board, IASymbol);
-            minimaxResult.setxCoordinates(1);
-            minimaxResult.setyCoordinates(1);
-            return minimaxResult;
-        }
 
-        if(winning(board, IASymbol) != null ){
-            System.out.println("ia");
-            minimaxResult.setSimulationResult(10);
-            int[] aux= winning(board, IASymbol);
-            minimaxResult.setxCoordinates(aux[1]);
-            minimaxResult.setyCoordinates(aux[0]);
-            return minimaxResult;
-        }else if(winning(board, enemySymbol) != null){
-            System.out.println("enem");
-            minimaxResult.setSimulationResult(-10);
-            int[] aux= winning(board, enemySymbol);
-            minimaxResult.setxCoordinates(aux[1]);
-            minimaxResult.setyCoordinates(aux[0]);
-            return minimaxResult;
-        }else if(availableSpaces.length == 0){
-            minimaxResult.setSimulationResult(0);
-            minimaxResult.setIsDraw(true);
-            return minimaxResult;
-        }
-        List<Move> moves = new ArrayList<>();
-        for(int i=0; i<availableSpaces.length; i++){
-
-            Move currentResult = new Move();
-            currentResult.setxCoordinates(availableSpaces[i][1]);
-            currentResult.setyCoordinates(availableSpaces[i][0]);
-
-            // set the empty spot to the current player
-            board[availableSpaces[i][0]][availableSpaces[i][1]] = player.charAt(0);
-
-            //if collect the score resulted from calling minimax on the opponent of the current player
-            String aux="X";
-            if(player.equals(IASymbol)){
-                aux= enemySymbol;
-            }else if(player.equals(enemySymbol)){
-                aux= IASymbol;
-            }
-            Move currentResultAux= makeMoveHard(board, aux);
-            currentResult.setSimulationResult(currentResultAux.getSimulationResult());
-
-            moves.add(currentResult);
-            board[availableSpaces[i][0]][availableSpaces[i][1]] = " ".charAt(0);
-
-           /* if(player.equals(IASymbol)){
-                if(bestResult < currentResult.getSimulationResult() || bestResult == -11){
-                    bestResult = currentResult.getSimulationResult();
-                    minimaxResult.setSimulationResult(currentResult.getSimulationResult());
-                    minimaxResult.setxCoordinates(availableSpaces[i][1]);
-                    minimaxResult.setyCoordinates(availableSpaces[i][0]);
-                }
-            }else {
-                if(bestResult > currentResult.getSimulationResult() || bestResult == -11){
-                    bestResult = currentResult.getSimulationResult();
-                    minimaxResult.setSimulationResult(currentResult.getSimulationResult());
-                    minimaxResult.setxCoordinates(availableSpaces[i][1]);
-                    minimaxResult.setyCoordinates(availableSpaces[i][0]);
-                }
-            }*/
-        }
-
-        int bestMove=0;
-        if(player.equals(IASymbol)){
-            int bestScore=-10000;
-            for(int i=0; i<moves.size(); i++){
-
-                if(moves.get(i).getSimulationResult() > bestScore){
-                    bestScore =  moves.get(i).getSimulationResult();
-                    bestMove = i;
-                }
-            }
-        }else{
-            int bestScore= 10000;
-            for(int i=0; i<moves.size(); i++){
-                if(moves.get(i).getSimulationResult() < bestScore){
-                    bestScore =  moves.get(i).getSimulationResult();
-                    bestMove = i;
-                }
-            }
-
-        }
-        System.out.println(moves.get(bestMove).getxCoordinates() + " .> "+  moves.get(bestMove).getyCoordinates());
-
-        return moves.get(bestMove);
-    }
 
     public boolean winMove() {
         String winV, winH, mySymbol;
@@ -419,7 +311,7 @@ public class GameScreen {
         return set;
     }
 
-    public int[] winning(char[][] board, String symbolPlay) {
+    public boolean winning(char[][] board, String symbolPlay) {
         String winV, winH;
         int r = -1;
         int c = -1;
@@ -496,13 +388,8 @@ public class GameScreen {
             c = 0;
             set = true;
         }
-        if(r!=-1 && c!= -1){
-            int[] coord = new int[2];
-            coord[1]=r;
-            coord[0]=c;
-            return coord;
-        }else
-            return null;
+
+        return set;
     }
 
     public int[][] emptyIndexies(char[][] board) {
@@ -533,62 +420,27 @@ public class GameScreen {
 
     /*      REQUEST COORDINATES FOR USER PLAYER */
     public boolean requestCoord() {
-        int aux;
+        String aux;
         int x = 4;
         int y = 4;
 
         while (true) {
-            System.out.print("Enter the number: ");
-            if(!scanner.hasNextInt()){
-                System.out.println("invalid, just numbers allow");
-            }
-           else{
-                aux = scanner.nextInt();
-                if ((aux>9 && aux <1) )
-                    System.out.println("You should enter valid numbers (1-9) !");
-                else {
+            System.out.print("Enter the coordinates: ");
+            aux = scanner.nextLine();
+
+            if (aux.isEmpty() || !Character.isDigit(aux.charAt(0)) || !Character.isDigit(aux.charAt(2)))
+                System.out.println("You should enter numbers!");
+            else {
+                x = Character.getNumericValue(aux.charAt(0));
+                y = Character.getNumericValue(aux.charAt(2));
+                if ((x >= 1 && x <= 3) && (y >= 1 && y <= 3) && this.isEmpty(x, y))
                     break;
-                }
+                else if ((x >= 1 && x <= 3) && (y >= 1 && y <= 3) && !this.isEmpty(x, y))
+                    System.out.println("This cell is occupied! Choose another one!");
+                else
+                    System.out.println("Coordinates should be from 1 to 3!");
             }
 
-        }
-        switch (aux){
-            case 1:
-                x=1;
-                y=1;
-                break;
-            case 2:
-                x=2;
-                y=1;
-                break;
-            case 3:
-                x=3;
-                y=1;
-                break;
-            case 4:
-                x=1;
-                y=2;
-                break;
-            case 5:
-                x=2;
-                y=2;
-                break;
-            case 6:
-                x=3;
-                y=2;
-                break;
-            case 7:
-                x=1;
-                y=3;
-                break;
-            case 8:
-                x=2;
-                y=3;
-                break;
-            case 9:
-                x=3;
-                y=3;
-                break;
         }
         this.setSymbols(x, y);
         this.changeWhoPlay();

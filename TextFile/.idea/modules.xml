@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/TextFile.iml" filepath="$PROJECT_DIR$/.idea/TextFile.iml" group="TextFile" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Text Editor/task/Text_Editor-task.iml" filepath="$PROJECT_DIR$/.idea/modules/Text Editor/task/Text_Editor-task.iml" group="TextFile/Text_Editor-task" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Text Editor/task/Text_Editor-task_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Text Editor/task/Text_Editor-task_main.iml" group="TextFile/Text_Editor-task" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Text Editor/task/Text_Editor-task_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Text Editor/task/Text_Editor-task_test.iml" group="TextFile/Text_Editor-task" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/util.iml" filepath="$PROJECT_DIR$/.idea/modules/util/util.iml" group="TextFile/util" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/util_main.iml" filepath="$PROJECT_DIR$/.idea/modules/util/util_main.iml" group="TextFile/util" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/util_test.iml" filepath="$PROJECT_DIR$/.idea/modules/util/util_test.iml" group="TextFile/util" />
+    </modules>
+  </component>
+</project>

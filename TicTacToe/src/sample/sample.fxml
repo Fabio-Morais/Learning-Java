@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" prefHeight="600.0" prefWidth="500.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="500.0">
+         <center>
+            <VBox alignment="CENTER" minHeight="400.0" prefHeight="400.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button defaultButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Player vs Player" wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="50.0" />
+                     </VBox.margin></Button>
+                  <Button defaultButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Player vs Computer" wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="50.0" />
+                     </VBox.margin></Button>
+                  <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Computer vs Computer" wrapText="true" />
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+         <top>
+            <Label text="Welcome to TicTacToe" textAlignment="CENTER" textFill="#3f65cd" underline="true" wrapText="true" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Consolas Bold" size="34.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <BorderPane.margin>
+                  <Insets top="20.0" />
+               </BorderPane.margin></Label>
+         </top>
+         <bottom>
+            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="512.0" text="Developer by Fábio Morais" BorderPane.alignment="CENTER" />
+         </bottom></BorderPane>
+   </children>
+</GridPane>

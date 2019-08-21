@@ -5,6 +5,7 @@
     <content url="file://$MODULE_DIR$/../../../../Tic-Tac-Toe with AI/task">
       <excludeFolder url="file://$MODULE_DIR$/../../../../Tic-Tac-Toe with AI/task/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../Tic-Tac-Toe with AI/task/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Tic-Tac-Toe with AI/task/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -237,24 +237,42 @@ class TTT1 extends JFrame implements ItemListener, ActionListener {
     }//eof actionperformed
 
     /************************************************************/
-    public static int commonCharacterCount(String s1, String s2) {
-        int counter = 0;
-        for(int i = 0; i < s1.length(); i++){
-            if(s2.contains(String.valueOf(s1.charAt(i)))){
-                counter++;
-                s2 = s2.replaceFirst(String.valueOf(s1.charAt(i)), "");
+    public static boolean areSimilar(int[] a, int[] b) {
+        String[] aux = new String[b.length];
+        int count=0;
+        for (int i=0; i<b.length; i++)
+            aux[i] = Integer.toString(b[i]);
+
+        for(int i=0; i<a.length; i++){
+            for(int j=0; j<aux.length; j++){
+                if(aux[j]!="" && a[i] == Integer.parseInt(aux[j]) && i!=j){
+                    count++;
+                }
+                if(count>2)
+                    return false;
+                if(aux[j]!="" && a[i] == Integer.parseInt(aux[j])){
+                    aux[j]="";
+                    break;
+                }
+
+                if(j== aux.length-1)
+                    return false;
             }
         }
-        return counter;
+
+        return true;
+
     }
+
+
 
 
 
     public static void main(String[] args) {
         //new TTT1();
-        String x ="abca";
-        String y ="xyzbac";
-        System.out.println(commonCharacterCount(x,y));
+       int[] a={4, 6, 3};
+       int[] b={3, 4, 6};
+        System.out.println(areSimilar(a,b));
 
 
     }//eof main
